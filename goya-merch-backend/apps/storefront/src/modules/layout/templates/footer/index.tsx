@@ -137,6 +137,37 @@ export default async function Footer() {
                     Instagram
                   </a>
                 </li>
+                <li className="mt-2 border-t border-ui-border-base pt-2">
+                  <span className="txt-small-plus txt-ui-fg-base">
+                    Informations légales
+                  </span>
+                  <ul className="grid grid-cols-1 gap-y-2 mt-2">
+                    <li>
+                      <LocalizedClientLink
+                        className="hover:text-ui-fg-base"
+                        href="/cgv"
+                      >
+                        CGV
+                      </LocalizedClientLink>
+                    </li>
+                    <li>
+                      <LocalizedClientLink
+                        className="hover:text-ui-fg-base"
+                        href="/mentions-legales"
+                      >
+                        Mentions Légales
+                      </LocalizedClientLink>
+                    </li>
+                    <li>
+                      <LocalizedClientLink
+                        className="hover:text-ui-fg-base"
+                        href="/politique-de-confidentialite"
+                      >
+                        Politique de Confidentialité
+                      </LocalizedClientLink>
+                    </li>
+                  </ul>
+                </li>
               </ul>
             </div>
           </div>

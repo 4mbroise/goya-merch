@@ -2,6 +2,10 @@ import { Button, Container, Text } from "@modules/common/components/ui"
 import { cookies as nextCookies } from "next/headers"
 
 async function ProductOnboardingCta() {
+  if (process.env.NODE_ENV !== "development") {
+    return null
+  }
+
   const cookies = await nextCookies()
 
   const isOnboarding = cookies.get("_medusa_onboarding")?.value === "true"

@@ -8,11 +8,9 @@ import PreviewPrice from "./price"
 export default async function ProductPreview({
   product,
   isFeatured,
-  region: _region,
 }: {
   product: HttpTypes.StoreProduct
   isFeatured?: boolean
-  region: HttpTypes.StoreRegion
 }) {
   // const pricedProduct = await listProducts({
   //   regionId: region.id,
