@@ -16,7 +16,11 @@ module.exports = defineConfig({
 modules: [
     {
       resolve: "./src/modules/invoice",
-      options: {},
+      options: {
+        database: {
+          clientUrl: process.env.DATABASE_URL,
+        },
+      },
     },
     {
       resolve: "@medusajs/medusa/payment",

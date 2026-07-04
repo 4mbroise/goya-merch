@@ -1,7 +1,7 @@
 import type { SubscriberArgs, SubscriberConfig } from "@medusajs/framework"
 
 const STOREFRONT_URL =
-  process.env.NEXT_PUBLIC_BASE_URL ?? "http://localhost:8000"
+  process.env.NEXT_PUBLIC_BASE_URL ?? "http://localhost:9001"
 const REVALIDATE_SECRET = process.env.REVALIDATE_SECRET ?? ""
 
 async function revalidateStorefront() {

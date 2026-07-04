@@ -31,7 +31,7 @@
 | Service | Dev | Production/Docker |
 |---------|-----|-------------------|
 | Backend (Medusa) | 9000 | 9000 |
-| Storefront (Next.js) | 8000 | 3000 |
+| Storefront (Next.js) | 9001 | 3000 |
 | PostgreSQL | 5432 | (Coolify-managed) |
 
 ### Environment Files

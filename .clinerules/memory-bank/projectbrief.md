@@ -39,7 +39,7 @@ goya-merch/
 ├── goya-merch-backend/         # Monorepo (npm workspaces + Turborepo)
 │   ├── apps/
 │   │   ├── backend/            # Medusa.js 2.0 application (port 9000)
-│   │   └── storefront/         # Next.js 15 storefront (DTC starter, port 8000 dev / 3000 prod)
+│   │   └── storefront/         # Next.js 15 storefront (DTC starter, port 9001 dev / 3000 prod)
 │   ├── turbo.json
 │   └── package.json
 └── README.md

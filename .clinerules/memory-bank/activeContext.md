@@ -70,7 +70,7 @@ The Medusa DTC Next.js storefront was customised for GOYA's visual identity:
 - Invoice path pattern: `invoices/YYYY/MM/GOYA-MERCH-XXXX.pdf`;
 - Seed scripts over manual admin UI entry for reproducible setup;
 - `@react-pdf/renderer` must be dynamically `import()`-ed (it's ESM-only; see Fix 3 in `Plan/fixes-log.md`);
-- Storefront dev on port **8000** (`next dev --turbopack -p 8000`), prod on port 3000;
+- Storefront dev on port **9001** (`next dev --turbopack -p 9001`), prod on port 3000;
 - Backend dev on port **9000**.
 
 ## Learnings and Project Insights

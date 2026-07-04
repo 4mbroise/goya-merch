@@ -3,7 +3,7 @@
 ## Architecture Overview
 The project is a monorepo managed with **npm workspaces + Turborepo**. It contains two apps under `apps/`:
 - **Backend (`apps/backend/`)**: Medusa.js 2.0 application (Node.js + TypeScript, port 9000)
-- **Storefront (`apps/storefront/`)**: Next.js 15 DTC starter (port 8000 dev, port 3000 production)
+- **Storefront (`apps/storefront/`)**: Next.js 15 DTC starter (port 9001 dev, port 3000 production)
 
 ## Medusa 2.0 Modular Architecture
 Medusa 2.0 uses a module-based architecture. Each capability (cart, product, customer, payment, notification, etc.) is a standalone module. The project has two custom modules:
