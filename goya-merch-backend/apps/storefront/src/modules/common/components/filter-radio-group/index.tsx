@@ -21,7 +21,7 @@ const FilterRadioGroup = ({
   return (
     <div className="flex gap-x-3 flex-col gap-y-3">
       <Text className="txt-compact-small-plus text-ui-fg-muted">{title}</Text>
-      <RadioGroup data-testid={dataTestId}>
+      <RadioGroup role="radiogroup" data-testid={dataTestId}>
         {items?.map((i) => (
           <div
             key={i.value}
@@ -33,7 +33,7 @@ const FilterRadioGroup = ({
             <RadioGroup.Item
               checked={i.value === value}
               onChange={() => handleChange(i.value)}
-              className="hidden peer"
+              className="sr-only peer"
               id={i.value}
               value={i.value}
             />

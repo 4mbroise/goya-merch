@@ -34,7 +34,7 @@ const LineItemUnitPrice = ({
               data-testid="product-unit-original-price"
             >
               {convertToLocale({
-                amount: original_total / item.quantity,
+                amount: original_total / (item.quantity || 1),
                 currency_code: currencyCode,
               })}
             </span>
@@ -51,7 +51,7 @@ const LineItemUnitPrice = ({
         data-testid="product-unit-price"
       >
         {convertToLocale({
-          amount: total / item.quantity,
+          amount: total / (item.quantity || 1),
           currency_code: currencyCode,
         })}
       </span>

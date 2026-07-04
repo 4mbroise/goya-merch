@@ -4,6 +4,7 @@ import LocalizedClientLink from "@modules/common/components/localized-client-lin
 const Hero = () => {
   return (
     <div className="h-[85vh] w-full border-b border-goya-border relative bg-goya-bg flex flex-col justify-center items-center text-center px-6 gap-8">
+      <h1 className="sr-only">GOYA — Official Merch</h1>
       <div className="flex flex-col gap-4 items-center">
         <Image
           src="/Typo-white.svg"

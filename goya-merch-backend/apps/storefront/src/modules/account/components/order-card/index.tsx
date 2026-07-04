@@ -50,7 +50,7 @@ const OrderCard = ({ order }: OrderCardProps) => {
               className="flex flex-col gap-y-2"
               data-testid="order-item"
             >
-              <Thumbnail thumbnail={i.thumbnail} images={[]} size="full" />
+              <Thumbnail thumbnail={i.thumbnail} images={[]} size="full" alt={i.title} />
               <div className="flex items-center text-small-regular text-ui-fg-base">
                 <span
                   className="text-ui-fg-base font-semibold"
@@ -74,10 +74,12 @@ const OrderCard = ({ order }: OrderCardProps) => {
         )}
       </div>
       <div className="flex justify-end">
-        <LocalizedClientLink href={`/account/orders/details/${order.id}`}>
-          <Button data-testid="order-details-link" variant="secondary">
-            See details
-          </Button>
+        <LocalizedClientLink
+          href={`/account/orders/details/${order.id}`}
+          data-testid="order-details-link"
+          className="inline-flex gap-2 items-center justify-center rounded-md font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-white text-black border border-gray-200 hover:bg-gray-50 h-10 px-4"
+        >
+          See details
         </LocalizedClientLink>
       </div>
     </div>

@@ -58,6 +58,7 @@ const Item = ({ item, type = "full", currencyCode }: ItemProps) => {
             thumbnail={item.thumbnail}
             images={item.variant?.product?.images}
             size="square"
+            alt={item.product_title}
           />
         </LocalizedClientLink>
       </Table.Cell>
@@ -75,12 +76,13 @@ const Item = ({ item, type = "full", currencyCode }: ItemProps) => {
       {type === "full" && (
         <Table.Cell>
           <div className="flex gap-2 items-center w-28">
-            <DeleteButton id={item.id} data-testid="product-delete-button" />
+            <DeleteButton id={item.id} data-testid="product-delete-button" aria-label={`Remove ${item.product_title} from cart`} />
             <CartItemSelect
               value={item.quantity}
               onChange={(value) => changeQuantity(parseInt(value.target.value))}
               className="w-14 h-10 p-4"
               data-testid="product-select-button"
+              aria-label="Quantity"
             >
               {/* TODO: Update this with the v2 way of managing inventory */}
               {Array.from(

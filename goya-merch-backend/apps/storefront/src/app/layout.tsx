@@ -14,7 +14,7 @@ export default function RootLayout(props: { children: React.ReactNode }) {
   return (
     <html lang="fr">
       <body className="bg-white text-grey-90">
-        <main className="relative">{props.children}</main>
+        {props.children}
       </body>
     </html>
   )

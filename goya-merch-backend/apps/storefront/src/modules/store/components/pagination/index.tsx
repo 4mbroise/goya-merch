@@ -40,6 +40,8 @@ export function Pagination({
       })}
       disabled={isCurrent}
       onClick={() => handlePageChange(p)}
+      aria-label={`Page ${p}`}
+      aria-current={isCurrent ? "page" : undefined}
     >
       {label}
     </button>
