@@ -1,0 +1,18 @@
+# Nixpacks config for the Medusa backend (Coolify deployment)
+# Coolify Base Directory: goya-merch-backend
+# Port: 9000
+
+[variables]
+NIXPACKS_NODE_VERSION = "20"
+
+[phases.setup]
+nixPkgs = ["...", "openssl"]
+
+[phases.install]
+cmds = ["npm install"]
+
+[phases.build]
+cmds = ["cd apps/backend && npx medusa build"]
+
+[start]
+cmd = "cd apps/backend && npx medusa db:migrate && npx medusa start"

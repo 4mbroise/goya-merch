@@ -1,0 +1,15 @@
+# Nixpacks config for the Next.js storefront (Coolify deployment)
+# Coolify Base Directory: goya-merch-backend/apps/storefront
+# Port: 9001
+
+[variables]
+NIXPACKS_NODE_VERSION = "20"
+
+[phases.install]
+cmds = ["npm install"]
+
+[phases.build]
+cmds = ["npm run build"]
+
+[start]
+cmd = "npm run start"
