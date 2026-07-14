@@ -4,12 +4,13 @@
 
 [variables]
 NIXPACKS_NODE_VERSION = "20"
+NPM_CONFIG_PRODUCTION = "false"
 
 [phases.setup]
 nixPkgs = ["...", "openssl"]
 
 [phases.install]
-cmds = ["npm install"]
+cmds = ["npm install --include=dev"]
 
 [phases.build]
 cmds = ["cd apps/backend && npx medusa build"]
