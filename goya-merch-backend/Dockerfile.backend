@@ -1,0 +1,29 @@
+FROM node:20-alpine AS builder
+WORKDIR /app
+
+# Copy root workspace files first
+COPY package*.json ./
+COPY apps/backend/package*.json apps/backend/
+
+# Install all workspace dependencies from root
+RUN npm install
+
+# Copy full source
+COPY . .
+
+# Build Medusa (skip admin to avoid missing index.html error)
+WORKDIR /app/apps/backend
+RUN DISABLE_MEDUSA_ADMIN=true npx medusa build
+
+# Production image
+FROM node:20-alpine
+WORKDIR /app
+
+# Copy built backend + installed deps
+COPY --from=builder /app/apps/backend ./
+COPY --from=builder /app/node_modules ./node_modules
+COPY --from=builder /app/.npmrc ./
+
+ENV DISABLE_MEDUSA_ADMIN=true
+EXPOSE 9000
+CMD ["npx", "medusa", "start"]
