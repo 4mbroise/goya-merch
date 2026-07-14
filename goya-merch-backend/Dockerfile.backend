@@ -11,19 +11,19 @@ RUN npm install
 # Copy full source
 COPY . .
 
-# Build Medusa (skip admin to avoid missing index.html error)
+# Build Medusa (server + admin)
 WORKDIR /app/apps/backend
-RUN DISABLE_MEDUSA_ADMIN=true npx medusa build
+RUN npx medusa build
 
 # Production image
 FROM node:20-alpine
-WORKDIR /app
+WORKDIR /app/apps/backend
 
-# Copy built backend + installed deps
-COPY --from=builder /app/apps/backend ./
+# Copy .medusa build artifacts + node_modules
+COPY --from=builder /app/apps/backend/.medusa ./.medusa
 COPY --from=builder /app/node_modules ./node_modules
+COPY --from=builder /app/apps/backend/node_modules ./node_modules_backend
 COPY --from=builder /app/.npmrc ./
 
-ENV DISABLE_MEDUSA_ADMIN=true
 EXPOSE 9000
 CMD ["npx", "medusa", "start"]
