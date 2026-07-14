@@ -11,7 +11,8 @@ node_modules
 *.tsbuildinfo
 **/.turbo
 **/.next
-**/.medusa
+# Keep .medusa build output (needed for medusa start)
+# **/.medusa
 **/dist
 coverage
 .nyc_output
