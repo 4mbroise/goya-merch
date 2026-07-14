@@ -1,0 +1,28 @@
+FROM node:20-alpine AS builder
+WORKDIR /app
+
+# Copy root workspace files first
+COPY package*.json ./
+COPY apps/storefront/package*.json apps/storefront/
+
+# Install all workspace dependencies from root
+RUN npm install
+
+# Copy full source
+COPY . .
+
+# Build storefront
+WORKDIR /app/apps/storefront
+RUN npm run build
+
+# Production image
+FROM node:20-alpine
+WORKDIR /app
+
+# Copy built storefront + installed deps
+COPY --from=builder /app/apps/storefront ./
+COPY --from=builder /app/node_modules ./node_modules
+COPY --from=builder /app/.npmrc ./
+
+EXPOSE 9001
+CMD ["npm", "run", "start"]
