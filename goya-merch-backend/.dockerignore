@@ -1,0 +1,17 @@
+node_modules
+.git
+*.log
+*.tmp
+.env
+.env.*
+!.env.template
+.clinerules
+.idea
+.vscode
+*.tsbuildinfo
+**/.turbo
+**/.next
+**/.medusa
+**/dist
+coverage
+.nyc_output
