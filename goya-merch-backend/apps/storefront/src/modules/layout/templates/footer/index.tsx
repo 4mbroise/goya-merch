@@ -12,9 +12,9 @@ export default async function Footer() {
   const productCategories = await listCategories();
 
   return (
-    <footer className="border-t border-ui-border-base w-full">
+    <footer className="border-t border-editorial-border w-full">
       <div className="content-container flex flex-col w-full">
-        <div className="flex flex-col gap-y-6 xsmall:flex-row items-start justify-between py-40">
+        <div className="flex flex-col gap-y-6 xsmall:flex-row items-start justify-between py-24">
           <div>
             <LocalizedClientLink
               href="/"
@@ -32,7 +32,7 @@ export default async function Footer() {
           <div className="text-small-regular gap-10 md:gap-x-16 grid grid-cols-2 sm:grid-cols-3">
             {productCategories && productCategories?.length > 0 && (
               <div className="flex flex-col gap-y-2">
-                <span className="txt-small-plus txt-ui-fg-base">
+                <span className="text-label text-editorial-ink">
                   Categories
                 </span>
                 <ul
@@ -53,12 +53,12 @@ export default async function Footer() {
 
                     return (
                       <li
-                        className="flex flex-col gap-2 text-ui-fg-subtle txt-small"
+                        className="flex flex-col gap-2 text-editorial-fg-subtle txt-small"
                         key={c.id}
                       >
                         <LocalizedClientLink
                           className={clx(
-                            "hover:text-ui-fg-base",
+                            "hover:text-editorial-ink",
                             children && "txt-small-plus"
                           )}
                           href={`/categories/${c.handle}`}
@@ -72,7 +72,7 @@ export default async function Footer() {
                               children.map((child) => (
                                 <li key={child.id}>
                                   <LocalizedClientLink
-                                    className="hover:text-ui-fg-base"
+                                    className="hover:text-editorial-ink"
                                     href={`/categories/${child.handle}`}
                                     data-testid="category-link"
                                   >
@@ -90,12 +90,12 @@ export default async function Footer() {
             )}
             {collections && collections.length > 0 && (
               <div className="flex flex-col gap-y-2">
-                <span className="txt-small-plus txt-ui-fg-base">
+                <span className="text-label text-editorial-ink">
                   Collections
                 </span>
                 <ul
                   className={clx(
-                    "grid grid-cols-1 gap-2 text-ui-fg-subtle txt-small",
+                    "grid grid-cols-1 gap-2 text-editorial-fg-subtle txt-small",
                     {
                       "grid-cols-2": (collections?.length || 0) > 3,
                     }
@@ -104,7 +104,7 @@ export default async function Footer() {
                   {collections?.slice(0, 6).map((c) => (
                     <li key={c.id}>
                       <LocalizedClientLink
-                        className="hover:text-ui-fg-base"
+                        className="hover:text-editorial-ink"
                         href={`/collections/${c.handle}`}
                       >
                         {c.title}
@@ -115,14 +115,14 @@ export default async function Footer() {
               </div>
             )}
             <div className="flex flex-col gap-y-2">
-              <span className="txt-small-plus txt-ui-fg-base">GOYA</span>
-              <ul className="grid grid-cols-1 gap-y-2 text-ui-fg-subtle txt-small">
+              <span className="text-label text-editorial-ink">GOYA</span>
+              <ul className="grid grid-cols-1 gap-y-2 text-editorial-fg-subtle txt-small">
                 <li>
                   <a
                     href="https://goya.xyz"
                     target="_blank"
                     rel="noreferrer"
-                    className="hover:text-ui-fg-base"
+                    className="hover:text-editorial-ink"
                   >
                     Website
                   </a>
@@ -132,19 +132,19 @@ export default async function Footer() {
                     href="https://instagram.com/goya"
                     target="_blank"
                     rel="noreferrer"
-                    className="hover:text-ui-fg-base"
+                    className="hover:text-editorial-ink"
                   >
                     Instagram
                   </a>
                 </li>
-                <li className="mt-2 border-t border-ui-border-base pt-2">
-                  <span className="txt-small-plus txt-ui-fg-base">
+                <li className="mt-2 border-t border-editorial-border pt-2">
+                  <span className="text-label text-editorial-ink">
                     Informations légales
                   </span>
                   <ul className="grid grid-cols-1 gap-y-2 mt-2">
                     <li>
                       <LocalizedClientLink
-                        className="hover:text-ui-fg-base"
+                        className="hover:text-editorial-ink"
                         href="/cgv"
                       >
                         CGV
@@ -152,7 +152,7 @@ export default async function Footer() {
                     </li>
                     <li>
                       <LocalizedClientLink
-                        className="hover:text-ui-fg-base"
+                        className="hover:text-editorial-ink"
                         href="/mentions-legales"
                       >
                         Mentions Légales
@@ -160,7 +160,7 @@ export default async function Footer() {
                     </li>
                     <li>
                       <LocalizedClientLink
-                        className="hover:text-ui-fg-base"
+                        className="hover:text-editorial-ink"
                         href="/politique-de-confidentialite"
                       >
                         Politique de Confidentialité
@@ -172,8 +172,8 @@ export default async function Footer() {
             </div>
           </div>
         </div>
-        <div className="flex w-full mb-16 justify-between text-ui-fg-muted">
-          <Text className="txt-compact-small">
+        <div className="flex w-full mb-16 justify-between text-editorial-fg-muted">
+          <Text className="text-breadcrumb">
             © {new Date().getFullYear()} GOYA. All rights reserved.
           </Text>
         </div>

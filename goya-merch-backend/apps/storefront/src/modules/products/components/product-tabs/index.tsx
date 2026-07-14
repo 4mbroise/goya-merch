@@ -43,30 +43,30 @@ const ProductTabs = ({ product }: ProductTabsProps) => {
 
 const ProductInfoTab = ({ product }: ProductTabsProps) => {
   return (
-    <div className="text-small-regular py-8">
+    <div className="py-8">
       <div className="grid grid-cols-2 gap-x-8">
         <div className="flex flex-col gap-y-4">
           <div>
-            <span className="font-semibold">Material</span>
-            <p>{product.material ? product.material : "-"}</p>
+            <span className="text-label">Material</span>
+            <p className="text-body-editorial text-editorial-fg-subtle">{product.material ? product.material : "-"}</p>
           </div>
           <div>
-            <span className="font-semibold">Country of origin</span>
-            <p>{product.origin_country ? product.origin_country : "-"}</p>
+            <span className="text-label">Country of origin</span>
+            <p className="text-body-editorial text-editorial-fg-subtle">{product.origin_country ? product.origin_country : "-"}</p>
           </div>
           <div>
-            <span className="font-semibold">Type</span>
-            <p>{product.type ? product.type.value : "-"}</p>
+            <span className="text-label">Type</span>
+            <p className="text-body-editorial text-editorial-fg-subtle">{product.type ? product.type.value : "-"}</p>
           </div>
         </div>
         <div className="flex flex-col gap-y-4">
           <div>
-            <span className="font-semibold">Weight</span>
-            <p>{product.weight ? `${product.weight} g` : "-"}</p>
+            <span className="text-label">Weight</span>
+            <p className="text-body-editorial text-editorial-fg-subtle">{product.weight ? `${product.weight} g` : "-"}</p>
           </div>
           <div>
-            <span className="font-semibold">Dimensions</span>
-            <p>
+            <span className="text-label">Dimensions</span>
+            <p className="text-body-editorial text-editorial-fg-subtle">
               {product.length && product.width && product.height
                 ? `${product.length}L x ${product.width}W x ${product.height}H`
                 : "-"}
@@ -80,13 +80,13 @@ const ProductInfoTab = ({ product }: ProductTabsProps) => {
 
 const ShippingInfoTab = () => {
   return (
-    <div className="text-small-regular py-8">
+    <div className="py-8">
       <div className="grid grid-cols-1 gap-y-8">
         <div className="flex items-start gap-x-2">
           <FastDelivery />
           <div>
-            <span className="font-semibold">Fast delivery</span>
-            <p className="max-w-sm">
+            <span className="text-label">Fast delivery</span>
+            <p className="max-w-sm text-body-editorial text-editorial-fg-subtle">
               Your package will arrive in 3-5 business days at your pick up
               location or in the comfort of your home.
             </p>
@@ -95,8 +95,8 @@ const ShippingInfoTab = () => {
         <div className="flex items-start gap-x-2">
           <Refresh />
           <div>
-            <span className="font-semibold">Simple exchanges</span>
-            <p className="max-w-sm">
+            <span className="text-label">Simple exchanges</span>
+            <p className="max-w-sm text-body-editorial text-editorial-fg-subtle">
               Is the fit not quite right? No worries - we&apos;ll exchange your
               product for a new one.
             </p>
@@ -105,8 +105,8 @@ const ShippingInfoTab = () => {
         <div className="flex items-start gap-x-2">
           <Back />
           <div>
-            <span className="font-semibold">Easy returns</span>
-            <p className="max-w-sm">
+            <span className="text-label">Easy returns</span>
+            <p className="max-w-sm text-body-editorial text-editorial-fg-subtle">
               Just return your product and we&apos;ll refund your money. No
               questions asked – we&apos;ll do our best to make sure your return
               is hassle-free.

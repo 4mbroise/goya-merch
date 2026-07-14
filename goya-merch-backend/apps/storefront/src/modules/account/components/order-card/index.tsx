@@ -24,7 +24,7 @@ const OrderCard = ({ order }: OrderCardProps) => {
   }, [order])
 
   return (
-    <div className="bg-white flex flex-col" data-testid="order-card">
+    <div className="bg-editorial-cream flex flex-col" data-testid="order-card">
       <div className="uppercase text-large-semi mb-1">
         #<span data-testid="order-display-id">{order.display_id}</span>
       </div>
@@ -77,7 +77,7 @@ const OrderCard = ({ order }: OrderCardProps) => {
         <LocalizedClientLink
           href={`/account/orders/details/${order.id}`}
           data-testid="order-details-link"
-          className="inline-flex gap-2 items-center justify-center rounded-md font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-white text-black border border-gray-200 hover:bg-gray-50 h-10 px-4"
+          className="inline-flex gap-2 items-center justify-center rounded-md font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-editorial-cream text-black border border-gray-200 hover:bg-gray-50 h-10 px-4"
         >
           See details
         </LocalizedClientLink>

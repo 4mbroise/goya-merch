@@ -1,7 +1,15 @@
 import { cookies } from "next/headers"
 import { getBaseURL } from "@lib/util/env"
 import { Metadata } from "next"
+import { Manrope } from "next/font/google"
 import "styles/globals.css"
+
+const manrope = Manrope({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-manrope",
+  weight: ["200", "300", "400", "500", "600", "700", "800"],
+})
 
 export const metadata: Metadata = {
   metadataBase: new URL(getBaseURL()),
@@ -17,8 +25,8 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
   const lang = localeCookie ? localeCookie.split("-")[0] : "fr"
 
   return (
-    <html lang={lang}>
-      <body className="bg-white text-grey-90">
+    <html lang={lang} className={manrope.variable}>
+      <body className="bg-editorial-cream text-editorial-ink font-sans">
         {props.children}
       </body>
     </html>

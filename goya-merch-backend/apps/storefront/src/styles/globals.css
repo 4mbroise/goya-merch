@@ -110,6 +110,35 @@
   .text-3xl-semi {
     @apply text-[32px] leading-[44px] font-semibold;
   }
+
+  /* Editorial typography — fashion-editorial scale for the GOYA rework */
+  .text-nav {
+    @apply text-[13px] font-medium uppercase tracking-[0.15em];
+  }
+
+  .text-breadcrumb {
+    @apply text-[11px] font-normal uppercase tracking-[0.1em];
+  }
+
+  .text-label {
+    @apply text-[12px] font-medium uppercase tracking-[0.1em];
+  }
+
+  .text-cta {
+    @apply text-[13px] font-semibold uppercase tracking-[0.1em];
+  }
+
+  .text-product-title {
+    @apply text-[28px] small:text-[32px] font-bold uppercase tracking-[-0.02em] leading-[1.1];
+  }
+
+  .text-body-editorial {
+    @apply text-[15px] font-normal leading-[1.6];
+  }
+
+  .text-price-editorial {
+    @apply text-[14px] font-normal;
+  }
 }
 
 /* Global keyboard focus indicator for accessibility */

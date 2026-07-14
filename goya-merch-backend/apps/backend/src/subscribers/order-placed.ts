@@ -107,6 +107,33 @@ export default async function orderPlacedHandler({
     } as any)
 
     console.log(`[order.placed] Notification dispatched successfully`)
+
+    // 8. Notify all admin users
+    try {
+      const userModule = container.resolve(Modules.USER)
+      const users = await userModule.listUsers()
+      const adminEmails = users.map((u: any) => u.email).filter(Boolean)
+
+      if (adminEmails.length === 0) {
+        console.warn(`[order.placed] No admin users found`)
+      } else {
+        const adminUrl = process.env.MEDUSA_ADMIN_URL ?? "http://localhost:8000"
+        const adminOrderUrl = `${adminUrl}/app/orders/${order.id}`
+        const adminPayload = { ...emailData, adminOrderUrl }
+
+        for (const adminEmail of adminEmails) {
+          await notificationService.createNotifications({
+            channel: "email",
+            to: adminEmail,
+            template: "order.admin.confirmation",
+            data: adminPayload as unknown as Record<string, unknown>,
+          } as any)
+        }
+        console.log(`[order.placed] Admin notifications sent to ${adminEmails.length} admin(s)`)
+      }
+    } catch (err) {
+      console.error(`[order.placed] Admin notification failed (customer email already sent):`, err)
+    }
   } catch (err) {
     console.error(`[order.placed] FATAL error for order ${data.id}:`, err)
   }

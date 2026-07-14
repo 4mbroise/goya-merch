@@ -21,7 +21,7 @@ export default async function CheckoutForm({
         <Text>Impossible de charger le paiement. Veuillez rafraîchir la page ou retourner au panier.</Text>
         <LocalizedClientLink
           href="/cart"
-          className="inline-flex gap-2 items-center justify-center rounded-md font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-black text-white hover:bg-gray-800 h-10 px-4"
+          className="inline-flex gap-2 items-center justify-center rounded-md font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-editorial-black text-white hover:bg-editorial-ink h-10 px-4"
         >
           Retour au panier
         </LocalizedClientLink>
@@ -38,7 +38,7 @@ export default async function CheckoutForm({
         <Text>Impossible de charger le paiement. Veuillez rafraîchir la page ou retourner au panier.</Text>
         <LocalizedClientLink
           href="/cart"
-          className="inline-flex gap-2 items-center justify-center rounded-md font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-black text-white hover:bg-gray-800 h-10 px-4"
+          className="inline-flex gap-2 items-center justify-center rounded-md font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-editorial-black text-white hover:bg-editorial-ink h-10 px-4"
         >
           Retour au panier
         </LocalizedClientLink>

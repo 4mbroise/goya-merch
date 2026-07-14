@@ -1,6 +1,7 @@
 "use client"
 
 import { Button } from "@modules/common/components/ui"
+import { clx } from "@modules/common/components/ui"
 import React from "react"
 import { useFormStatus } from "react-dom"
 
@@ -22,7 +23,10 @@ export function SubmitButton({
   return (
     <Button
       size={size}
-      className={className}
+      className={clx(
+        "bg-editorial-black text-white hover:bg-editorial-ink text-cta",
+        className
+      )}
       type="submit"
       isLoading={pending}
       variant={variant || "primary"}
