@@ -9,20 +9,26 @@ export default function CheckoutLayout({
   children: React.ReactNode
 }) {
   return (
-    <div className="w-full bg-white relative small:min-h-screen">
-      <div className="h-16 bg-white border-b ">
+    <div className="w-full bg-editorial-cream relative small:min-h-screen">
+      <a
+        href="#main-content"
+        className="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-[100] focus:rounded focus:bg-editorial-cream focus:px-4 focus:py-2 focus:shadow"
+      >
+        Aller au contenu principal
+      </a>
+      <div className="h-16 bg-editorial-cream border-b border-editorial-border ">
         <nav className="flex h-full items-center content-container justify-between">
           <LocalizedClientLink
             href="/cart"
-            className="text-small-semi text-ui-fg-base flex items-center gap-x-2 uppercase flex-1 basis-0"
+            className="text-small-semi text-editorial-fg flex items-center gap-x-2 uppercase flex-1 basis-0"
             data-testid="back-to-cart-link"
           >
             <ChevronDown className="rotate-90" size={16} />
-            <span className="mt-px hidden small:block txt-compact-plus text-ui-fg-subtle hover:text-ui-fg-base ">
-              Back to shopping cart
+            <span className="mt-px hidden small:block txt-compact-plus text-editorial-fg-subtle hover:text-editorial-fg ">
+              Retour au panier
             </span>
-            <span className="mt-px block small:hidden txt-compact-plus text-ui-fg-subtle hover:text-ui-fg-base">
-              Back
+            <span className="mt-px block small:hidden txt-compact-plus text-editorial-fg-subtle hover:text-editorial-fg">
+              Retour
             </span>
           </LocalizedClientLink>
           <LocalizedClientLink
@@ -42,7 +48,7 @@ export default function CheckoutLayout({
           <div className="flex-1 basis-0" />
         </nav>
       </div>
-      <div className="relative" data-testid="checkout-container">{children}</div>
+      <main id="main-content" tabIndex={-1} className="relative" data-testid="checkout-container">{children}</main>
       <div className="py-4 w-full flex items-center justify-center">
         <MedusaCTA />
       </div>

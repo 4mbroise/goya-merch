@@ -66,9 +66,6 @@ function ShippingNotificationEmail({ data }: { data: ShippingNotificationData })
               <Text style={{ color: "#ffffff", fontSize: "20px", fontWeight: 700, letterSpacing: "2px", margin: "0 0 4px 0" }}>
                 {data.trackingNumber}
               </Text>
-              <Text style={{ color: "#666666", fontSize: "12px", margin: "0 0 16px 0" }}>
-                {data.carrier}{data.estimatedDelivery ? ` · Livraison estimée : ${data.estimatedDelivery}` : ""}
-              </Text>
               <Button
                 href={data.trackingUrl}
                 style={{

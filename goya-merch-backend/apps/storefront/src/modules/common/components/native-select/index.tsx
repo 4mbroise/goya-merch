@@ -1,9 +1,10 @@
 import { ChevronUpDown } from "@medusajs/icons"
-import { clx } from "@modules/common/components/ui"
+import { Label, clx } from "@modules/common/components/ui"
 import {
   SelectHTMLAttributes,
   forwardRef,
   useEffect,
+  useId,
   useImperativeHandle,
   useRef,
   useState,
@@ -13,15 +14,18 @@ export type NativeSelectProps = {
   placeholder?: string
   errors?: Record<string, unknown>
   touched?: Record<string, unknown>
+  label?: string
+  ariaLabel?: string
 } & SelectHTMLAttributes<HTMLSelectElement>
 
 const NativeSelect = forwardRef<HTMLSelectElement, NativeSelectProps>(
   (
-    { placeholder = "Select...", defaultValue, className, children, ...props },
+    { placeholder = "Select...", defaultValue, className, children, label, ariaLabel, ...props },
     ref
   ) => {
     const innerRef = useRef<HTMLSelectElement>(null)
     const [isPlaceholder, setIsPlaceholder] = useState(false)
+    const id = useId()
 
     useImperativeHandle<HTMLSelectElement | null, HTMLSelectElement | null>(
       ref,
@@ -38,6 +42,11 @@ const NativeSelect = forwardRef<HTMLSelectElement, NativeSelectProps>(
 
     return (
       <div>
+        {label && (
+          <Label htmlFor={id} className="mb-2 txt-compact-medium-plus">
+            {label}
+          </Label>
+        )}
         <div
           onFocus={() => innerRef.current?.focus()}
           onBlur={() => innerRef.current?.blur()}
@@ -51,7 +60,9 @@ const NativeSelect = forwardRef<HTMLSelectElement, NativeSelectProps>(
         >
           <select
             ref={innerRef}
+            id={label ? id : undefined}
             defaultValue={defaultValue}
+            aria-label={!label ? ariaLabel : undefined}
             {...props}
             className="appearance-none flex-1 bg-transparent border-none px-4 py-2.5 transition-colors duration-150 outline-none "
           >

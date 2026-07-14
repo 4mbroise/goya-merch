@@ -152,7 +152,7 @@ const Shipping: React.FC<ShippingProps> = ({
   }, [isOpen])
 
   return (
-    <div className="bg-white">
+    <div className="bg-editorial-cream">
       <div className="flex flex-row items-center justify-between mb-6">
         <Heading
           level="h2"
@@ -260,7 +260,7 @@ const Shipping: React.FC<ShippingProps> = ({
                           {
                             "border-ui-border-interactive":
                               option.id === shippingMethodId,
-                            "hover:shadow-brders-none cursor-not-allowed":
+                            "hover:shadow-borders-none cursor-not-allowed":
                               isDisabled,
                           }
                         )}
@@ -330,7 +330,7 @@ const Shipping: React.FC<ShippingProps> = ({
                             {
                               "border-ui-border-interactive":
                                 option.id === shippingMethodId,
-                              "hover:shadow-brders-none cursor-not-allowed":
+                              "hover:shadow-borders-none cursor-not-allowed":
                                 option.insufficient_inventory,
                             }
                           )}

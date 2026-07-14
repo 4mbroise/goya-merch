@@ -2,7 +2,7 @@ import React from "react"
 
 import { IconProps } from "types/icon"
 
-const Ideal: React.FC<IconProps> = ({
+const Bancontact: React.FC<IconProps> = ({
   size: _size = "20",
   color = "currentColor",
   ...attributes
@@ -23,4 +23,4 @@ const Ideal: React.FC<IconProps> = ({
   )
 }
 
-export default Ideal
+export default Bancontact

@@ -40,6 +40,15 @@ module.exports = {
           fg: "#F2F2F2",
           "fg-subtle": "#A0A0A0",
         },
+        editorial: {
+          cream: "#FAF9F6",
+          ink: "#1A1A1A",
+          black: "#000000",
+          border: "#E5E5E5",
+          fg: "#1A1A1A",
+          "fg-subtle": "#6B6B6B",
+          "fg-muted": "#9A9A9A",
+        },
       },
       borderRadius: {
         none: "0px",
@@ -66,6 +75,7 @@ module.exports = {
       },
       fontFamily: {
         sans: [
+          "var(--font-manrope)",
           "Inter",
           "-apple-system",
           "BlinkMacSystemFont",

@@ -32,10 +32,13 @@ const OrderOverview = ({ orders }: { orders: HttpTypes.StoreOrder[] }) => {
         You don&apos;t have any orders yet, let us change that {":)"}
       </p>
       <div className="mt-4">
-        <LocalizedClientLink href="/" passHref>
-          <Button data-testid="continue-shopping-button">
-            Continue shopping
-          </Button>
+        <LocalizedClientLink
+          href="/"
+          passHref
+          data-testid="continue-shopping-button"
+          className="inline-flex gap-2 items-center justify-center rounded-md font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-black text-white hover:bg-gray-800 h-10 px-4"
+        >
+          Continue shopping
         </LocalizedClientLink>
       </div>
     </div>

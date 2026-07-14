@@ -1,0 +1,82 @@
+{
+  "collection": {
+    "title": "Collection GOYA 2025",
+    "handle": "collection-goya-2025"
+  },
+  "products": [
+    {
+      "title": "GOYA T-Shirt",
+      "description": "T-shirt GOYA 100% coton bio. Sérigraphie logo GOYA au dos.",
+      "weight": 200,
+      "status": "published",
+      "images": [],
+      "options": [
+        { "title": "Taille", "values": ["S", "M", "L", "XL", "XXL"] }
+      ],
+      "variants": [
+        { "sku": "GOYA-TSHIRT-S",   "title": "S",   "options": { "Taille": "S" },   "price": 30, "stock": 20 },
+        { "sku": "GOYA-TSHIRT-M",   "title": "M",   "options": { "Taille": "M" },   "price": 30, "stock": 20 },
+        { "sku": "GOYA-TSHIRT-L",   "title": "L",   "options": { "Taille": "L" },   "price": 30, "stock": 20 },
+        { "sku": "GOYA-TSHIRT-XL",  "title": "XL",  "options": { "Taille": "XL" },  "price": 30, "stock": 20 },
+        { "sku": "GOYA-TSHIRT-XXL", "title": "XXL", "options": { "Taille": "XXL" }, "price": 30, "stock": 20 }
+      ]
+    },
+    {
+      "title": "GOYA Hoodie",
+      "description": "Hoodie GOYA molleton 350g. Logo brodé à la poitrine.",
+      "weight": 600,
+      "status": "published",
+      "images": [],
+      "options": [
+        { "title": "Taille", "values": ["S", "M", "L", "XL", "XXL"] }
+      ],
+      "variants": [
+        { "sku": "GOYA-HOODIE-S",   "title": "S",   "options": { "Taille": "S" },   "price": 55, "stock": 20 },
+        { "sku": "GOYA-HOODIE-M",   "title": "M",   "options": { "Taille": "M" },   "price": 55, "stock": 20 },
+        { "sku": "GOYA-HOODIE-L",   "title": "L",   "options": { "Taille": "L" },   "price": 55, "stock": 20 },
+        { "sku": "GOYA-HOODIE-XL",  "title": "XL",  "options": { "Taille": "XL" },  "price": 55, "stock": 20 },
+        { "sku": "GOYA-HOODIE-XXL", "title": "XXL", "options": { "Taille": "XXL" }, "price": 55, "stock": 20 }
+      ]
+    },
+    {
+      "title": "GOYA — Vinyle LP",
+      "description": "Premier album de GOYA en édition vinyle 180g. Tirage limité.",
+      "weight": 350,
+      "status": "published",
+      "images": [],
+      "options": [
+        { "title": "Édition", "values": ["Standard", "Numérotée"] }
+      ],
+      "variants": [
+        { "sku": "GOYA-VINYL-STD", "title": "Standard",  "options": { "Édition": "Standard" },   "price": 25, "stock": 20 },
+        { "sku": "GOYA-VINYL-NUM", "title": "Numérotée", "options": { "Édition": "Numérotée" },  "price": 35, "stock": 20 }
+      ]
+    },
+    {
+      "title": "GOYA — Poster A2",
+      "description": "Poster officiel GOYA format A2 (42×59,4 cm), impression offset.",
+      "weight": 100,
+      "status": "published",
+      "images": [],
+      "options": [
+        { "title": "Format", "values": ["A2"] }
+      ],
+      "variants": [
+        { "sku": "GOYA-POSTER-A2", "title": "A2", "options": { "Format": "A2" }, "price": 15, "stock": 20 }
+      ]
+    },
+    {
+      "title": "GOYA Tote Bag",
+      "description": "Tote bag GOYA en coton naturel. Sérigraphie logo.",
+      "weight": 150,
+      "status": "published",
+      "images": [],
+      "options": [
+        { "title": "Taille", "values": ["Unique"] }
+      ],
+      "variants": [
+        { "sku": "GOYA-TOTEBAG", "title": "Unique", "options": { "Taille": "Unique" }, "price": 18, "stock": 20 }
+      ]
+    }
+  ]
+}

@@ -7,6 +7,7 @@ import ProductTabs from "@modules/products/components/product-tabs"
 import RelatedProducts from "@modules/products/components/related-products"
 import ProductInfo from "@modules/products/templates/product-info"
 import SkeletonRelatedProducts from "@modules/skeletons/templates/skeleton-related-products"
+import LocalizedClientLink from "@modules/common/components/localized-client-link"
 import { notFound } from "next/navigation"
 import { HttpTypes } from "@medusajs/types"
 
@@ -32,24 +33,42 @@ const ProductTemplate: React.FC<ProductTemplateProps> = ({
   return (
     <>
       <div
-        className="content-container  flex flex-col small:flex-row small:items-start py-6 relative"
+        className="content-container flex flex-col small:flex-row small:items-start py-6 relative"
         data-testid="product-container"
       >
-        <div className="flex flex-col small:sticky small:top-48 small:py-0 small:max-w-[300px] w-full py-8 gap-y-6">
+        {/* Left column — Image Gallery (~55%) */}
+        <div className="block w-full small:w-[55%] relative">
+          <ImageGallery images={images} productTitle={product.title} />
+        </div>
+        {/* Right column — Product info, options, tabs (~45%, sticky) */}
+        <div className="flex flex-col w-full small:w-[45%] small:sticky small:top-48 small:self-start px-8 small:px-12 py-8 gap-y-8">
+          {/* Breadcrumb */}
+          <div className="text-breadcrumb text-editorial-fg-subtle">
+            <LocalizedClientLink href="/store" className="hover:underline">
+              SHOP
+            </LocalizedClientLink>
+            {product.collection && (
+              <>
+                <span className="mx-1">/</span>
+                <LocalizedClientLink
+                  href={`/collections/${product.collection.handle}`}
+                  className="hover:underline"
+                >
+                  {product.collection.title}
+                </LocalizedClientLink>
+              </>
+            )}
+            <span className="mx-1">/</span>
+            <span>{product.title}</span>
+          </div>
           <ProductInfo product={product} />
           <ProductTabs product={product} />
-        </div>
-        <div className="block w-full relative">
-          <ImageGallery images={images} />
-        </div>
-        <div className="flex flex-col small:sticky small:top-48 small:py-0 small:max-w-[300px] w-full py-8 gap-y-12">
           <ProductOnboardingCta />
           <Suspense
             fallback={
               <ProductActions
                 disabled={true}
                 product={product}
-                region={region}
               />
             }
           >

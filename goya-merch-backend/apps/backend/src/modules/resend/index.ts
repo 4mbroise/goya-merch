@@ -8,6 +8,10 @@ import {
   renderShippingNotificationEmail,
   type ShippingNotificationData,
 } from "./templates/shipping-notification"
+import {
+  renderOrderAdminConfirmationEmail,
+  type OrderAdminConfirmationData,
+} from "./templates/order-admin-confirmation"
 
 export const RESEND_MODULE = "resendNotification"
 
@@ -48,6 +52,8 @@ class ResendNotificationProvider {
         return this.sendOrderConfirmation(notification.to, notification.data, notification.attachments)
       case "order.shipment_created":
         return this.sendShippingNotification(notification.to, notification.data)
+      case "order.admin.confirmation":
+        return this.sendOrderAdminNotification(notification.to, notification.data as unknown as OrderAdminConfirmationData)
       default:
         throw new Error(`Unknown email template: ${notification.template}`)
     }
@@ -101,6 +107,26 @@ class ResendNotificationProvider {
       from: this.fromAddress,
       to,
       subject: `Ta commande #${data.orderNumber} est en route — GOYA`,
+      html,
+    })
+
+    if (result.error) {
+      throw new Error(`Resend error: ${result.error.message}`)
+    }
+
+    return { id: result.data!.id }
+  }
+
+  private async sendOrderAdminNotification(
+    to: string,
+    data: OrderAdminConfirmationData
+  ): Promise<ProviderSendNotificationResultsDTO> {
+    const html = await renderOrderAdminConfirmationEmail(data)
+
+    const result = await this.resend.emails.send({
+      from: this.fromAddress,
+      to,
+      subject: `Nouvelle commande #${data.orderNumber} — GOYA`,
       html,
     })
 

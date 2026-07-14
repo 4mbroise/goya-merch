@@ -8,11 +8,9 @@ import PreviewPrice from "./price"
 export default async function ProductPreview({
   product,
   isFeatured,
-  region: _region,
 }: {
   product: HttpTypes.StoreProduct
   isFeatured?: boolean
-  region: HttpTypes.StoreRegion
 }) {
   // const pricedProduct = await listProducts({
   //   regionId: region.id,
@@ -28,16 +26,23 @@ export default async function ProductPreview({
   })
 
   return (
-    <LocalizedClientLink href={`/products/${product.handle}`} className="group">
+    <LocalizedClientLink
+      href={`/products/${product.handle}`}
+      className="group group-hover:opacity-80 transition-opacity duration-200"
+    >
       <div data-testid="product-wrapper">
         <Thumbnail
           thumbnail={product.thumbnail}
           images={product.images}
           size="full"
           isFeatured={isFeatured}
+          alt={product.title}
         />
-        <div className="flex txt-compact-medium mt-4 justify-between">
-          <Text className="text-ui-fg-subtle" data-testid="product-title">
+        <div className="flex mt-4 justify-between items-baseline">
+          <Text
+            className="text-editorial-ink text-label"
+            data-testid="product-title"
+          >
             {product.title}
           </Text>
           <div className="flex items-center gap-x-2">

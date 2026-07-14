@@ -26,6 +26,12 @@ export default async function PageLayout(props: { children: React.ReactNode }) {
 
   return (
     <>
+      <a
+        href="#main-content"
+        className="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-[100] focus:rounded focus:bg-white focus:px-4 focus:py-2 focus:shadow"
+      >
+        Aller au contenu principal
+      </a>
       <Nav />
       {customer && cart && (
         <CartMismatchBanner customer={customer} cart={cart} />
@@ -38,7 +44,9 @@ export default async function PageLayout(props: { children: React.ReactNode }) {
           shippingOptions={shippingOptions}
         />
       )}
-      {props.children}
+      <main id="main-content" tabIndex={-1}>
+        {props.children}
+      </main>
       <Footer />
     </>
   )

@@ -7,7 +7,10 @@ const TransferImage = (_props: SVGProps<SVGSVGElement>) => (
     viewBox="0 0 280 181"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
+    role="img"
+    aria-label="Order transfer illustration"
   >
+    <title>Order transfer illustration</title>
     <rect
       x="0.00428286"
       y="-0.742904"

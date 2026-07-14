@@ -3,7 +3,8 @@ import LocalizedClientLink from "@modules/common/components/localized-client-lin
 
 const Hero = () => {
   return (
-    <div className="h-[85vh] w-full border-b border-goya-border relative bg-goya-bg flex flex-col justify-center items-center text-center px-6 gap-8">
+    <div className="h-[85vh] w-full border-b border-editorial-border relative bg-editorial-black flex flex-col justify-center items-center text-center px-6 gap-8">
+      <h1 className="sr-only">GOYA — Official Merch</h1>
       <div className="flex flex-col gap-4 items-center">
         <Image
           src="/Typo-white.svg"
@@ -13,13 +14,13 @@ const Hero = () => {
           className="w-full max-w-[350px] small:max-w-[500px] h-auto"
           priority
         />
-        <p className="text-sm tracking-[0.4em] uppercase text-goya-fg-subtle">
+        <p className="text-sm tracking-[0.4em] uppercase text-editorial-fg-muted">
           Official Merch
         </p>
       </div>
       <LocalizedClientLink
         href="/store"
-        className="mt-4 px-8 py-3 border border-goya-fg text-goya-fg text-sm tracking-widest uppercase hover:bg-goya-fg hover:text-goya-ink transition-colors duration-200"
+        className="mt-4 px-8 py-3 border border-editorial-cream text-editorial-cream text-sm tracking-widest uppercase hover:bg-editorial-cream hover:text-editorial-black transition-colors duration-200"
       >
         Shop Now
       </LocalizedClientLink>
