@@ -1,0 +1,28 @@
+FROM node:20-alpine AS builder
+WORKDIR /app
+
+# Copy package files
+COPY package*.json ./
+COPY apps/storefront/package*.json apps/storefront/
+
+# Install dependencies (monorepo workspace)
+RUN npm install
+
+# Copy source
+COPY . .
+
+# Build Next.js
+WORKDIR /app/apps/storefront
+RUN npm run build
+
+# Production image
+FROM node:20-alpine
+WORKDIR /app
+
+# Copy built app + node_modules
+COPY --from=builder /app/apps/storefront ./
+COPY --from=builder /app/node_modules ./node_modules
+COPY --from=builder /app/node_modules/.cache ./node_modules/.cache
+
+EXPOSE 9001
+CMD ["npm", "run", "start"]
