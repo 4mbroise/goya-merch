@@ -1,28 +1,25 @@
 FROM node:20-alpine AS builder
 WORKDIR /app
 
-# Copy root workspace files first
-COPY package*.json ./
-COPY apps/storefront/package*.json apps/storefront/
+# Copy only storefront package files
+COPY apps/storefront/package*.json ./
 
-# Install all workspace dependencies from root
+# Install storefront dependencies only (no workspace overhead)
 RUN npm install
 
-# Copy full source
-COPY . .
+# Copy source
+COPY apps/storefront .
 
-# Build storefront
-WORKDIR /app/apps/storefront
+# Build Next.js
 RUN npm run build
 
 # Production image
 FROM node:20-alpine
 WORKDIR /app
 
-# Copy built storefront + installed deps
-COPY --from=builder /app/apps/storefront ./
-COPY --from=builder /app/node_modules ./node_modules
-COPY --from=builder /app/.npmrc ./
+# Copy built app + node_modules
+COPY --from=builder /app ./
 
+ENV NODE_ENV=production
 EXPOSE 9001
 CMD ["npm", "run", "start"]
