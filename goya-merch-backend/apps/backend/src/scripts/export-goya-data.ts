@@ -106,7 +106,7 @@ export default async function exportGoyaData({
 
   // Build a map: inventory_item_id → stock level
   const stockMap = new Map<string, number>()
-  for (const item of inventoryItems) {
+  for (const item of inventoryItems as any[]) {
     const variant = item.variants?.[0]
     if (variant) {
       const level = item.stock_levels?.[0]
