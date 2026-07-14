@@ -16,4 +16,4 @@ cmds = ["npm install --include=dev"]
 cmds = ["cd apps/backend && npx medusa build"]
 
 [start]
-cmd = "cd apps/backend && npx medusa db:migrate && npx medusa start"
+cmd = "cd apps/backend && npx medusa build && npx medusa db:migrate && npx medusa start"
