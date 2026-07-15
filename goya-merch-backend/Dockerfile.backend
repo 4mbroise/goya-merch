@@ -11,16 +11,19 @@ RUN npm install
 # Copy full source
 COPY . .
 
-# Build Medusa (server + admin)
+# Build Medusa (server + admin), then copy admin to the path medusa start expects
 WORKDIR /app/apps/backend
-RUN npx medusa build
+RUN npx medusa build \
+    && mkdir -p public \
+    && cp -r .medusa/server/public/admin public/
 
 # Production image
 FROM node:20-alpine
 WORKDIR /app/apps/backend
 
-# Copy .medusa build artifacts + node_modules
+# Copy .medusa build artifacts + admin + node_modules
 COPY --from=builder /app/apps/backend/.medusa ./.medusa
+COPY --from=builder /app/apps/backend/public ./public
 COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/apps/backend/node_modules ./node_modules_backend
 COPY --from=builder /app/.npmrc ./
