@@ -1,0 +1,67 @@
+# Production deployment via docker compose.
+# For Coolify, deploy `Dockerfile.backend` and `Dockerfile.storefront` as two
+# separate resources and set the env vars in the Coolify UI (mark the
+# NEXT_PUBLIC_* ones as "build variables" so they reach `next build`).
+#
+# Build args with placeholders: set real values in a `.env` file next to this
+# docker-compose.yml (docker compose auto-loads it for ${VAR} substitution):
+#   NEXT_PUBLIC_MEDUSA_BACKEND_URL=https://api.example.com
+#   NEXT_PUBLIC_BASE_URL=https://example.com
+#   NEXT_PUBLIC_MEDUSA_PUBLISHABLE_KEY=pk_...
+#   NEXT_PUBLIC_STRIPE_KEY=pk_...
+services:
+  redis:
+    image: redis:7-alpine
+    container_name: goya_redis
+    restart: unless-stopped
+    ports:
+      - "6380:6379"
+    networks:
+      - goya_network
+
+  medusa:
+    build:
+      context: .
+      dockerfile: Dockerfile.backend
+    container_name: goya_backend
+    restart: unless-stopped
+    depends_on:
+      - redis
+    ports:
+      - "9000:9000"
+    environment:
+      - NODE_ENV=production
+      - REDIS_URL=redis://redis:6379
+    env_file:
+      - apps/backend/.env
+    networks:
+      - goya_network
+
+  storefront:
+    build:
+      context: .
+      dockerfile: Dockerfile.storefront
+      args:
+        # Baked into the Next.js client bundle at build time.
+        # Override with real public URLs for production.
+        NEXT_PUBLIC_MEDUSA_PUBLISHABLE_KEY: ${NEXT_PUBLIC_MEDUSA_PUBLISHABLE_KEY:-}
+        NEXT_PUBLIC_MEDUSA_BACKEND_URL: ${NEXT_PUBLIC_MEDUSA_BACKEND_URL:-http://localhost:9000}
+        NEXT_PUBLIC_DEFAULT_REGION: ${NEXT_PUBLIC_DEFAULT_REGION:-fr}
+        NEXT_PUBLIC_BASE_URL: ${NEXT_PUBLIC_BASE_URL:-http://localhost:9001}
+        NEXT_PUBLIC_STRIPE_KEY: ${NEXT_PUBLIC_STRIPE_KEY:-}
+    container_name: goya_storefront
+    restart: unless-stopped
+    depends_on:
+      - medusa
+    ports:
+      - "9001:9001"
+    environment:
+      - NODE_ENV=production
+    env_file:
+      - apps/storefront/.env
+    networks:
+      - goya_network
+
+networks:
+  goya_network:
+    driver: bridge

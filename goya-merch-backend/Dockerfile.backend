@@ -1,32 +1,41 @@
+# Backend (Medusa) production image.
+# Built by Coolify as a standalone service. Runtime env (DATABASE_URL, secrets,
+# CORS, etc.) is injected by Coolify at run time; only build-time setup happens here.
 FROM node:20-alpine AS builder
 WORKDIR /app
 
-# Copy root workspace files first
-COPY package*.json ./
-COPY apps/backend/package*.json apps/backend/
+# Copy root workspace files first for npm install (overrides, workspaces)
+COPY package.json package-lock.json .npmrc ./
+COPY apps/backend/package.json apps/backend/
 
-# Install all workspace dependencies from root
-RUN npm install
+ENV NODE_OPTIONS=--dns-result-order=ipv4first
 
-# Copy full source
+RUN npm install --legacy-peer-deps
+
+# Copy full source (respect .dockerignore)
 COPY . .
 
-# Build Medusa (server + admin), then copy admin to the path medusa start expects
+# Build Medusa server + admin, then place admin where `medusa start` serves it
 WORKDIR /app/apps/backend
 RUN npx medusa build \
     && mkdir -p public \
     && cp -r .medusa/server/public/admin public/
 
-# Production image
+# --- Production image ---
 FROM node:20-alpine
 WORKDIR /app/apps/backend
 
-# Copy .medusa build artifacts + admin + node_modules
-COPY --from=builder /app/apps/backend/.medusa ./.medusa
-COPY --from=builder /app/apps/backend/public ./public
-COPY --from=builder /app/node_modules ./node_modules
-COPY --from=builder /app/apps/backend/node_modules ./node_modules_backend
-COPY --from=builder /app/.npmrc ./
+# Copy built backend (includes .medusa, public/admin, medusa-config.ts, src)
+COPY --from=builder /app/apps/backend ./
+# Hoisted workspace node_modules at /app/node_modules (Node resolves up the tree)
+COPY --from=builder /app/node_modules /app/node_modules
+# Root package.json + .npmrc so npm/npx resolves cleanly
+COPY --from=builder /app/package.json /app/package-lock.json /app/.npmrc /app/
+
+ENV NODE_ENV=production
+# Put hoisted .bin on PATH so `medusa` is found without npx
+ENV PATH="/app/node_modules/.bin:$PATH"
 
 EXPOSE 9000
-CMD ["npx", "medusa", "start"]
+# Migrate on boot, then start the compiled server from .medusa/server
+CMD ["sh", "-c", "medusa db:migrate; medusa start"]
