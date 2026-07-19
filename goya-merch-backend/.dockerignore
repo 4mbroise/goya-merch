@@ -19,5 +19,3 @@ dist
 build
 docker-compose.yml
 Dockerfile
-start.sh
-start-storefront.sh
