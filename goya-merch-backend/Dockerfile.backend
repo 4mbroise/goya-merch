@@ -5,8 +5,10 @@ WORKDIR /app
 COPY package*.json ./
 COPY apps/backend/package*.json apps/backend/
 
-# Install all workspace dependencies from root
-RUN npm install
+ENV NODE_OPTIONS=--dns-result-order=ipv4first
+
+RUN npm config set registry https://registry.npmjs.org/
+RUN npm install --force --loglevel verbose
 
 # Copy full source
 COPY . .
@@ -22,11 +24,12 @@ FROM node:20-alpine
 WORKDIR /app/apps/backend
 
 # Copy .medusa build artifacts + admin + node_modules
-COPY --from=builder /app/apps/backend/.medusa ./.medusa
-COPY --from=builder /app/apps/backend/public ./public
+COPY --from=builder /app/apps/backend ./
+# COPY --from=builder /app/apps/backend/.medusa ./.medusa
+# COPY --from=builder /app/apps/backend/public ./public
 COPY --from=builder /app/node_modules ./node_modules
-COPY --from=builder /app/apps/backend/node_modules ./node_modules_backend
+# COPY --from=builder /app/apps/backend/node_modules ./node_modules_backend
 COPY --from=builder /app/.npmrc ./
 
 EXPOSE 9000
-CMD ["npx", "medusa", "start"]
+CMD sh -c 'npx medusa db:migrate; npx medusa start'

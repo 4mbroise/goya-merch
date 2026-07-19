@@ -1,0 +1,65 @@
+services:
+  # Redis
+  redis:
+    image: redis:7-alpine
+    container_name: goya_redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    networks:
+      - goya_network
+
+  # Medusa Server
+  # This service runs the Medusa backend application
+  # and the admin dashboard.
+  medusa:
+    build: .
+    container_name: goya_backend
+    restart: unless-stopped
+    depends_on:
+      - redis
+    ports:
+      - "9000:9000"
+      - "5173:5173"
+    environment:
+      - NODE_ENV=development
+      - REDIS_URL=redis://redis:6379
+    env_file:
+      - apps/backend/.env
+    volumes:
+      - .:/server
+      - /server/node_modules
+      - /server/apps/backend/node_modules
+    networks:
+      - goya_network
+
+  # Storefront
+  # This service runs the Next.js Starter Storefront
+  storefront:
+    build: .
+    container_name: goya_storefront
+    restart: unless-stopped
+    depends_on:
+      - medusa
+    ports:
+      - "9001:9001"
+    environment:
+      - NODE_ENV=development
+      - NEXT_PUBLIC_MEDUSA_BACKEND_URL=http://medusa:9000
+    env_file:
+      - apps/storefront/.env
+    volumes:
+      - .:/server
+      - /server/node_modules
+      - /server/apps/backend/node_modules
+      - /server/apps/storefront/node_modules
+      - /server/apps/storefront/.next
+    entrypoint: ["./start-storefront.sh"]
+    networks:
+      - goya_network
+
+volumes:
+
+networks:
+  goya_network:
+    driver: bridge

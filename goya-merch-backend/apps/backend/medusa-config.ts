@@ -6,6 +6,10 @@ module.exports = defineConfig({
   projectConfig: {
     databaseUrl: process.env.DATABASE_URL,
     redisUrl: process.env.REDIS_URL,
+    databaseDriverOptions: {
+      ssl: false,
+      sslmode: "disable",
+    },
     http: {
       storeCors: process.env.STORE_CORS!,
       adminCors: process.env.ADMIN_CORS!,
@@ -14,7 +18,25 @@ module.exports = defineConfig({
       cookieSecret: process.env.COOKIE_SECRET || "supersecret",
     }
   },
-modules: [
+  admin: {
+    vite: (config) => {
+      return {
+        server: {
+          host: "0.0.0.0",
+          allowedHosts: [
+            "localhost",
+            ".localhost",
+            "127.0.0.1",
+          ],
+          hmr: {
+            port: 5173,
+            clientPort: 5173,
+          },
+        },
+      }
+    },
+  },
+  modules: [
     {
       resolve: "./src/modules/invoice",
       options: {
