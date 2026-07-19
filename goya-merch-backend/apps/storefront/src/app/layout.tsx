@@ -4,6 +4,12 @@ import { Metadata } from "next"
 import { Manrope } from "next/font/google"
 import "styles/globals.css"
 
+// Render all pages on-demand (SSR) instead of pre-rendering at build time.
+// The storefront fetches from the Medusa backend, which is not available
+// during `next build` in Docker. This lets the image build without a live
+// backend; pages are rendered at request time when the backend is up.
+export const dynamic = "force-dynamic"
+
 const manrope = Manrope({
   subsets: ["latin"],
   display: "swap",

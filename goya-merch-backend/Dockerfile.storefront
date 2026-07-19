@@ -1,25 +1,53 @@
+# Storefront (Next.js) production image.
+# Built by Coolify as a standalone service.
+#
+# NEXT_PUBLIC_* vars are inlined by Next.js at BUILD time, so they must be
+# available when `next build` runs. Coolify passes env vars flagged as
+# "build variables" as Docker build ARGs.
+#
+# Mechanism: the committed apps/storefront/.env holds localhost defaults so
+# local `docker compose build` works out of the box. Non-empty build ARGs
+# (set in Coolify or via compose build.args) are appended to .env inside the
+# image (later lines win), overriding the localhost defaults — so production
+# values take effect without touching the committed .env file.
 FROM node:20-alpine AS builder
 WORKDIR /app
 
-# Copy only storefront package files
+# Install storefront deps standalone (all deps are published packages,
+# no workspace:* references, so this is safe)
 COPY apps/storefront/package*.json ./
+RUN npm install --legacy-peer-deps
 
-# Install storefront dependencies only (no workspace overhead)
-RUN npm install
+# Build-time env (override via --build-arg in Coolify / docker compose)
+ARG NEXT_PUBLIC_MEDUSA_PUBLISHABLE_KEY
+ARG NEXT_PUBLIC_MEDUSA_BACKEND_URL
+ARG NEXT_PUBLIC_DEFAULT_REGION
+ARG NEXT_PUBLIC_BASE_URL
+ARG NEXT_PUBLIC_STRIPE_KEY
 
-# Copy source
+# Copy source (apps/storefront/.env with localhost defaults is included)
 COPY apps/storefront .
 
-# Build Next.js
-RUN npm run build
+# Append any non-empty build ARGs to .env so they override the localhost
+# defaults (later lines in .env win). Empty ARGs are skipped → local builds
+# fall back to the committed .env values.
+RUN for v in NEXT_PUBLIC_MEDUSA_PUBLISHABLE_KEY NEXT_PUBLIC_MEDUSA_BACKEND_URL \
+             NEXT_PUBLIC_DEFAULT_REGION NEXT_PUBLIC_BASE_URL NEXT_PUBLIC_STRIPE_KEY; do \
+      val="$(printenv "$v" 2>/dev/null || true)"; \
+      if [ -n "$val" ]; then echo "$v=$val" >> /app/.env; fi; \
+    done
 
-# Production image
+# Source .env into the shell so check-env-variables.js (which runs inside
+# next.config.js BEFORE Next.js auto-loads .env files) sees the values.
+RUN set -a && . ./.env && set +a && npm run build
+
+# --- Production image ---
 FROM node:20-alpine
 WORKDIR /app
 
-# Copy built app + node_modules
 COPY --from=builder /app ./
 
 ENV NODE_ENV=production
 EXPOSE 9001
+# `next start -p 9001` (see apps/storefront/package.json "start" script)
 CMD ["npm", "run", "start"]

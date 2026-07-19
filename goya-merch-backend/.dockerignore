@@ -11,6 +11,9 @@ yarn-error.log*
 README.md
 .env.test
 .env.local
+# Backend .env holds real secrets (DB url, Stripe secret, Resend key, GitHub PAT).
+# Inject at runtime via Coolify / env_file, never bake into the image.
+apps/backend/.env
 .nyc_output
 coverage
 .DS_Store
@@ -19,3 +22,5 @@ dist
 build
 docker-compose.yml
 Dockerfile
+Dockerfile.backend
+Dockerfile.storefront
