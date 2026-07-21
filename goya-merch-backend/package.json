@@ -47,6 +47,7 @@
     "react": "18.3.1",
     "react-dom": "18.3.1",
     "@types/react": "$@types/react",
-    "@types/react-dom": "18.3.1"
+    "@types/react-dom": "18.3.1",
+    "@aws-sdk/client-s3": "3.726.1"
   }
 }
