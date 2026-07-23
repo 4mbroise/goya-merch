@@ -26,15 +26,6 @@ const optionsAsKeymap = (
   }, {})
 }
 
-// Check if a variant is in stock (same logic as inStock useMemo below)
-const variantIsInStock = (variant: HttpTypes.StoreProductVariant | undefined) => {
-  if (!variant) return false
-  if (!variant.manage_inventory) return true
-  if (variant.allow_backorder) return true
-  if ((variant.inventory_quantity || 0) > 0) return true
-  return false
-}
-
 export default function ProductActions({
   product,
   disabled,
@@ -48,20 +39,9 @@ export default function ProductActions({
   const countryCode = useParams().countryCode as string
 
   // If there is only 1 variant, preselect the options
-  // If there are multiple variants, preselect the first in-stock variant
   useEffect(() => {
-    if (!product.variants?.length) return
-
-    if (product.variants.length === 1) {
+    if (product.variants?.length === 1) {
       const variantOptions = optionsAsKeymap(product.variants[0].options)
-      setOptions(variantOptions ?? {})
-      return
-    }
-
-    // Find first in-stock variant and preselect it
-    const firstInStock = product.variants.find((v) => variantIsInStock(v))
-    if (firstInStock) {
-      const variantOptions = optionsAsKeymap(firstInStock.options)
       setOptions(variantOptions ?? {})
     }
   }, [product.variants])
@@ -171,7 +151,8 @@ export default function ProductActions({
                       disabled={!!disabled || isAdding}
                     />
                   </div>
-                )})}
+                )})
+              }
               <div className="h-px w-full border-b border-editorial-border mt-1" />
             </div>
           )}
