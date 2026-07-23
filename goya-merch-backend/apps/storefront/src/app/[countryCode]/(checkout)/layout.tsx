@@ -49,9 +49,6 @@ export default function CheckoutLayout({
         </nav>
       </div>
       <main id="main-content" tabIndex={-1} className="relative" data-testid="checkout-container">{children}</main>
-      <div className="py-4 w-full flex items-center justify-center">
-        <MedusaCTA />
-      </div>
     </div>
   )
 }
