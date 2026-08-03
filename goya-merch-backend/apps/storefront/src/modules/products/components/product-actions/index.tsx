@@ -114,6 +114,38 @@ export default function ProductActions({
     return false
   }, [selectedVariant])
 
+  // compute which option values are out of stock
+  const outOfStockValuesMap = useMemo(() => {
+    const map: Record<string, string[]> = {}
+    if (!product.options || !product.variants) return map
+
+    for (const option of product.options) {
+      const values: string[] = []
+      for (const variant of product.variants) {
+        const variantOption = variant.options?.find((o) => o.option_id === option.id)
+        if (!variantOption) continue
+
+        // check if this variant is in stock
+        let variantInStock = false
+        if (!variant.manage_inventory) {
+          variantInStock = true
+        } else if (variant.allow_backorder) {
+          variantInStock = true
+        } else if ((variant.inventory_quantity || 0) > 0) {
+          variantInStock = true
+        }
+
+        if (!variantInStock && !values.includes(variantOption.value)) {
+          values.push(variantOption.value)
+        }
+      }
+      if (values.length > 0) {
+        map[option.id] = values
+      }
+    }
+    return map
+  }, [product.options, product.variants])
+
   const actionsRef = useRef<HTMLDivElement>(null)
 
   const inView = useIntersection(actionsRef, "0px")
@@ -149,6 +181,7 @@ export default function ProductActions({
                       title={option.title ?? ""}
                       data-testid="product-options"
                       disabled={!!disabled || isAdding}
+                      outOfStockValues={outOfStockValuesMap[option.id]}
                     />
                   </div>
                 )})
@@ -174,8 +207,8 @@ export default function ProductActions({
           isLoading={isAdding}
           data-testid="add-product-button"
         >
-          {!selectedVariant && !options
-            ? "Select variant"
+          {!selectedVariant
+            ? "Select a size"
             : !inStock || !isValidVariant
             ? "Out of stock"
             : "Add to cart"}
