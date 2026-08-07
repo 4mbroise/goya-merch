@@ -52,6 +52,43 @@ const MobileActions: React.FC<MobileActionsProps> = ({
 
   const isSimple = isSimpleProduct(product)
 
+  // wrap updateOptions to close the modal after selecting an option
+  const handleUpdateOption = (title: string, value: string) => {
+    updateOptions(title, value)
+    close()
+  }
+
+  // compute which option values are out of stock (same logic as ProductActions)
+  const outOfStockValuesMap = useMemo(() => {
+    const map: Record<string, string[]> = {}
+    if (!product.options || !product.variants) return map
+
+    for (const option of product.options) {
+      const values: string[] = []
+      for (const variant of product.variants) {
+        const variantOption = variant.options?.find((o) => o.option_id === option.id)
+        if (!variantOption) continue
+
+        let variantInStock = false
+        if (!variant.manage_inventory) {
+          variantInStock = true
+        } else if (variant.allow_backorder) {
+          variantInStock = true
+        } else if ((variant.inventory_quantity || 0) > 0) {
+          variantInStock = true
+        }
+
+        if (!variantInStock && !values.includes(variantOption.value)) {
+          values.push(variantOption.value)
+        }
+      }
+      if (values.length > 0) {
+        map[option.id] = values
+      }
+    }
+    return map
+  }, [product.options, product.variants])
+
   return (
     <>
       <div
@@ -180,9 +217,10 @@ const MobileActions: React.FC<MobileActionsProps> = ({
                               <OptionSelect
                                 option={option}
                                 current={options[option.title ?? option.id]}
-                                updateOption={updateOptions}
+                                updateOption={handleUpdateOption}
                                 title={option.title ?? ""}
                                 disabled={optionsDisabled}
+                                outOfStockValues={outOfStockValuesMap[option.id]}
                               />
                             </div>
                           )
