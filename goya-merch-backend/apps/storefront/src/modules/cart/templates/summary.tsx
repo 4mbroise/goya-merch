@@ -1,6 +1,7 @@
 "use client"
 
 import { Button, Heading } from "@modules/common/components/ui"
+import { useTranslations } from "next-intl"
 
 import CartTotals from "@modules/common/components/cart-totals"
 import Divider from "@modules/common/components/divider"
@@ -23,12 +24,13 @@ function getCheckoutStep(cart: HttpTypes.StoreCart) {
 }
 
 const Summary = ({ cart }: SummaryProps) => {
+  const t = useTranslations()
   const step = getCheckoutStep(cart)
 
   return (
     <div className="flex flex-col gap-y-4">
       <Heading level="h2" className="text-product-title text-editorial-ink">
-        Summary
+        {t("cart.summary")}
       </Heading>
       <DiscountCode cart={cart} />
       <Divider />
@@ -38,7 +40,7 @@ const Summary = ({ cart }: SummaryProps) => {
         data-testid="checkout-button"
         className="inline-flex gap-2 items-center justify-center rounded-md font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-editorial-black text-white hover:bg-editorial-ink h-10 px-4 w-full text-cta"
       >
-        Go to checkout
+        {t("cart.goToCheckout")}
       </LocalizedClientLink>
     </div>
   )

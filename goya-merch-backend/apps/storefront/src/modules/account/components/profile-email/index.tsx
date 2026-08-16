@@ -15,7 +15,7 @@ const ProfileEmail: React.FC<MyInformationProps> = ({ customer }) => {
 
   return (
     <AccountInfo
-      label="Email"
+      label={t("account.email")}
       currentInfo={`${customer.email}`}
       isSuccess={false}
       isError={false}

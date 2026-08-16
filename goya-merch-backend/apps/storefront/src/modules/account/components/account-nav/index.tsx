@@ -3,6 +3,7 @@
 import { ArrowRightOnRectangle } from "@medusajs/icons"
 import { clx } from "@modules/common/components/ui"
 import { useParams, usePathname } from "next/navigation"
+import { useTranslations } from "next-intl"
 
 import { signout } from "@lib/data/customer"
 import { HttpTypes } from "@medusajs/types"
@@ -17,6 +18,7 @@ const AccountNav = ({
 }: {
   customer: HttpTypes.StoreCustomer | null
 }) => {
+  const t = useTranslations()
   const route = usePathname()
   const { countryCode } = useParams() as { countryCode: string }
 
@@ -97,7 +99,7 @@ const AccountNav = ({
                   >
                     <div className="flex items-center gap-x-2">
                       <ArrowRightOnRectangle />
-                      <span>Log out</span>
+                      <span>{t("account.signOut")}</span>
                     </div>
                     <ChevronDown className="transform -rotate-90" />
                   </button>
@@ -156,7 +158,7 @@ const AccountNav = ({
                   onClick={handleLogout}
                   data-testid="logout-button"
                 >
-                  Log out
+                  {t("account.signOut")}
                 </button>
               </li>
             </ul>

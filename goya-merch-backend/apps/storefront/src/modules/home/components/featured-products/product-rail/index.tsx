@@ -4,6 +4,7 @@ import { Text } from "@modules/common/components/ui"
 
 import InteractiveLink from "@modules/common/components/interactive-link"
 import ProductPreview from "@modules/products/components/product-preview"
+import ViewAllLink from "./view-all-link"
 
 export default async function ProductRail({
   collection,
@@ -30,9 +31,7 @@ export default async function ProductRail({
     <div className="content-container py-12 small:py-24">
       <div className="flex justify-between mb-8">
         <Text className="text-product-title text-editorial-ink">{collection.title}</Text>
-        <InteractiveLink href={`/collections/${collection.handle}`}>
-          View all
-        </InteractiveLink>
+        <ViewAllLink href={`/collections/${collection.handle}`} />
       </div>
       <ul className="grid grid-cols-2 small:grid-cols-3 gap-x-6 gap-y-16 small:gap-y-24">
         {pricedProducts &&

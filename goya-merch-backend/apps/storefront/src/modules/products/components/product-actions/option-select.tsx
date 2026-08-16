@@ -1,6 +1,7 @@
 import { HttpTypes } from "@medusajs/types"
 import { clx } from "@modules/common/components/ui"
 import React from "react"
+import { useTranslations } from "next-intl"
 import X from "@modules/common/icons/x"
 
 type OptionSelectProps = {
@@ -22,11 +23,12 @@ const OptionSelect: React.FC<OptionSelectProps> = ({
   disabled,
   outOfStockValues = [],
 }) => {
+  const t = useTranslations()
   const filteredOptions = (option.values ?? []).map((v) => v.value)
 
   return (
     <div className="flex flex-col gap-y-3">
-      <span className="text-label text-editorial-fg-subtle">Select {title}</span>
+      <span className="text-label text-editorial-fg-subtle">{t("product.selectOption", { option: title })}</span>
       <div
         className="flex flex-wrap justify-between gap-2"
         data-testid={dataTestId}

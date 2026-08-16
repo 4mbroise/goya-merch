@@ -1,6 +1,7 @@
 import repeat from "@lib/util/repeat"
 import { HttpTypes } from "@medusajs/types"
 import { Heading, Table } from "@modules/common/components/ui"
+import { getTranslations } from "next-intl/server"
 
 import Item from "@modules/cart/components/item"
 import SkeletonLineItem from "@modules/skeletons/components/skeleton-line-item"
@@ -9,24 +10,25 @@ type ItemsTemplateProps = {
   cart?: HttpTypes.StoreCart
 }
 
-const ItemsTemplate = ({ cart }: ItemsTemplateProps) => {
+const ItemsTemplate = async ({ cart }: ItemsTemplateProps) => {
+  const t = await getTranslations({ namespace: "cart" })
   const items = cart?.items
   return (
     <div>
       <div className="pb-3 flex items-center">
-        <Heading className="text-product-title text-editorial-ink">Cart</Heading>
+        <Heading className="text-product-title text-editorial-ink">{t("cart")}</Heading>
       </div>
       <Table>
         <Table.Header className="border-t-0">
             <Table.Row className="text-editorial-fg-subtle text-label">
-            <Table.HeaderCell className="!pl-0">Item</Table.HeaderCell>
+            <Table.HeaderCell className="!pl-0">{t("item")}</Table.HeaderCell>
             <Table.HeaderCell></Table.HeaderCell>
-            <Table.HeaderCell>Quantity</Table.HeaderCell>
+            <Table.HeaderCell>{t("quantity")}</Table.HeaderCell>
             <Table.HeaderCell className="hidden small:table-cell">
-              Price
+              {t("price")}
             </Table.HeaderCell>
             <Table.HeaderCell className="!pr-0 text-right">
-              Total
+              {t("total")}
             </Table.HeaderCell>
           </Table.Row>
         </Table.Header>

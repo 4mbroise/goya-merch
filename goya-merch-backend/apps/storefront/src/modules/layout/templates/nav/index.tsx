@@ -8,6 +8,8 @@ import { StoreRegion } from "@medusajs/types"
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
 import CartButton from "@modules/layout/components/cart-button"
 import SideMenu from "@modules/layout/components/side-menu"
+import NavAccountLink from "@modules/layout/components/nav-translations"
+import CartFallback from "@modules/layout/components/cart-fallback"
 
 export default async function Nav() {
   const [regions, locales, currentLocale] = await Promise.all([
@@ -45,25 +47,9 @@ export default async function Nav() {
 
           <div className="flex items-center gap-x-6 h-full flex-1 basis-0 justify-end">
             <div className="hidden small:flex items-center gap-x-6 h-full">
-              <LocalizedClientLink
-                className="hover:text-editorial-ink"
-                href="/account"
-                data-testid="nav-account-link"
-              >
-                Account
-              </LocalizedClientLink>
+              <NavAccountLink />
             </div>
-            <Suspense
-              fallback={
-                <LocalizedClientLink
-                  className="hover:text-editorial-ink flex gap-2"
-                  href="/cart"
-                  data-testid="nav-cart-link"
-                >
-                  Cart (0)
-                </LocalizedClientLink>
-              }
-            >
+            <Suspense fallback={<CartFallback />}>
               <CartButton />
             </Suspense>
           </div>

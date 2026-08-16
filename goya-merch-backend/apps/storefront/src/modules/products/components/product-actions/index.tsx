@@ -11,6 +11,7 @@ import { useEffect, useMemo, useRef, useState } from "react"
 import ProductPrice from "../product-price"
 import MobileActions from "./mobile-actions"
 import { useRouter } from "next/navigation"
+import { useTranslations } from "next-intl"
 
 type ProductActionsProps = {
   product: HttpTypes.StoreProduct
@@ -30,6 +31,7 @@ export default function ProductActions({
   product,
   disabled,
 }: ProductActionsProps) {
+  const t = useTranslations()
   const router = useRouter()
   const pathname = usePathname()
   const searchParams = useSearchParams()
@@ -87,7 +89,7 @@ export default function ProductActions({
       params.delete("v_id")
     }
 
-    router.replace(pathname + "?" + params.toString())
+    router.replace(pathname + "?" + params.toString(), { scroll: false })
   }, [selectedVariant, isValidVariant])
 
   // check if the selected variant is in stock
@@ -208,10 +210,10 @@ export default function ProductActions({
           data-testid="add-product-button"
         >
           {!selectedVariant
-            ? "Select a size"
+            ? t("product.selectASize")
             : !inStock || !isValidVariant
-            ? "Out of stock"
-            : "Add to cart"}
+            ? t("product.outOfStock")
+            : t("product.addToCart")}
         </Button>
         <MobileActions
           product={product}

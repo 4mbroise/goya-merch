@@ -4,9 +4,10 @@ import { listProducts } from "@lib/data/products"
 import { getRegion, listRegions } from "@lib/data/regions"
 import ProductTemplate from "@modules/products/templates"
 import { HttpTypes } from "@medusajs/types"
+import { setRequestLocale } from "next-intl/server"
 
 type Props = {
-  params: Promise<{ countryCode: string; handle: string }>
+  params: Promise<{ countryCode: string; handle: string; locale: string }>
   searchParams: Promise<{ v_id?: string }>
 }
 
@@ -36,10 +37,13 @@ export async function generateStaticParams() {
 
     return countryProducts
       .flatMap((countryData) =>
-        countryData.products.map((product) => ({
-          countryCode: countryData.country,
-          handle: product.handle,
-        }))
+        countryData.products.flatMap((product) =>
+          (["fr", "en"] as const).map((locale) => ({
+            locale,
+            countryCode: countryData.country,
+            handle: product.handle,
+          }))
+        )
       )
       .filter((param) => param.handle)
   } catch (error) {

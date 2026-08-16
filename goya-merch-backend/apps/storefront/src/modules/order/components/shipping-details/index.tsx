@@ -1,14 +1,16 @@
 import { convertToLocale } from "@lib/util/money"
 import { HttpTypes } from "@medusajs/types"
-import { Heading, Text } from "@modules/common/components/ui"
-
-import Divider from "@modules/common/components/divider"
+import { Text } from "@modules/common/components/ui"
+import { clx } from "@modules/common/components/ui"
+import React from "react"
+import { useTranslations } from "next-intl"
 
 type ShippingDetailsProps = {
   order: HttpTypes.StoreOrder
 }
 
 const ShippingDetails = ({ order }: ShippingDetailsProps) => {
+  const t = useTranslations()
   return (
     <div>
       <Heading level="h2" className="flex flex-row text-3xl-regular my-6">
