@@ -3,6 +3,7 @@
 import Back from "@modules/common/icons/back"
 import FastDelivery from "@modules/common/icons/fast-delivery"
 import Refresh from "@modules/common/icons/refresh"
+import { useTranslations } from "next-intl"
 
 import Accordion from "./accordion"
 import { HttpTypes } from "@medusajs/types"
@@ -12,13 +13,15 @@ type ProductTabsProps = {
 }
 
 const ProductTabs = ({ product }: ProductTabsProps) => {
+  const t = useTranslations()
+
   const tabs = [
     {
-      label: "Product Information",
+      label: t("product.productInformation"),
       component: <ProductInfoTab product={product} />,
     },
     {
-      label: "Shipping & Returns",
+      label: t("product.shippingReturns"),
       component: <ShippingInfoTab />,
     },
   ]
@@ -42,30 +45,32 @@ const ProductTabs = ({ product }: ProductTabsProps) => {
 }
 
 const ProductInfoTab = ({ product }: ProductTabsProps) => {
+  const t = useTranslations()
+
   return (
     <div className="py-8">
       <div className="grid grid-cols-2 gap-x-8">
         <div className="flex flex-col gap-y-4">
           <div>
-            <span className="text-label">Material</span>
+            <span className="text-label">{t("product.material")}</span>
             <p className="text-body-editorial text-editorial-fg-subtle">{product.material ? product.material : "-"}</p>
           </div>
           <div>
-            <span className="text-label">Country of origin</span>
+            <span className="text-label">{t("product.countryOfOrigin")}</span>
             <p className="text-body-editorial text-editorial-fg-subtle">{product.origin_country ? product.origin_country : "-"}</p>
           </div>
           <div>
-            <span className="text-label">Type</span>
+            <span className="text-label">{t("product.type")}</span>
             <p className="text-body-editorial text-editorial-fg-subtle">{product.type ? product.type.value : "-"}</p>
           </div>
         </div>
         <div className="flex flex-col gap-y-4">
           <div>
-            <span className="text-label">Weight</span>
+            <span className="text-label">{t("product.weight")}</span>
             <p className="text-body-editorial text-editorial-fg-subtle">{product.weight ? `${product.weight} g` : "-"}</p>
           </div>
           <div>
-            <span className="text-label">Dimensions</span>
+            <span className="text-label">{t("product.dimensions")}</span>
             <p className="text-body-editorial text-editorial-fg-subtle">
               {product.length && product.width && product.height
                 ? `${product.length}L x ${product.width}W x ${product.height}H`
@@ -79,37 +84,35 @@ const ProductInfoTab = ({ product }: ProductTabsProps) => {
 }
 
 const ShippingInfoTab = () => {
+  const t = useTranslations()
+
   return (
     <div className="py-8">
       <div className="grid grid-cols-1 gap-y-8">
         <div className="flex items-start gap-x-2">
           <FastDelivery />
           <div>
-            <span className="text-label">Fast delivery</span>
+            <span className="text-label">{t("product.fastDelivery")}</span>
             <p className="max-w-sm text-body-editorial text-editorial-fg-subtle">
-              Your package will arrive in 3-5 business days at your pick up
-              location or in the comfort of your home.
+              {t("product.fastDeliveryDesc")}
             </p>
           </div>
         </div>
         <div className="flex items-start gap-x-2">
           <Refresh />
           <div>
-            <span className="text-label">Simple exchanges</span>
+            <span className="text-label">{t("product.simpleExchanges")}</span>
             <p className="max-w-sm text-body-editorial text-editorial-fg-subtle">
-              Is the fit not quite right? No worries - we&apos;ll exchange your
-              product for a new one.
+              {t("product.simpleExchangesDesc")}
             </p>
           </div>
         </div>
         <div className="flex items-start gap-x-2">
           <Back />
           <div>
-            <span className="text-label">Easy returns</span>
+            <span className="text-label">{t("product.easyReturns")}</span>
             <p className="max-w-sm text-body-editorial text-editorial-fg-subtle">
-              Just return your product and we&apos;ll refund your money. No
-              questions asked – we&apos;ll do our best to make sure your return
-              is hassle-free.
+              {t("product.easyReturnsDesc")}
             </p>
           </div>
         </div>

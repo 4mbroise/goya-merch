@@ -1,12 +1,9 @@
 import { Metadata } from "next"
+import { getTranslations } from "next-intl/server"
+import { setRequestLocale } from "next-intl/server"
 
 import { SortOptions } from "@modules/store/components/refinement-list/sort-products"
 import StoreTemplate from "@modules/store/templates"
-
-export const metadata: Metadata = {
-  title: "Store",
-  description: "Explore all of our products.",
-}
 
 type Params = {
   searchParams: Promise<{
@@ -15,19 +12,33 @@ type Params = {
   }>
   params: Promise<{
     countryCode: string
+    locale: string
   }>
+}
+
+export async function generateMetadata(props: { params: Promise<{ countryCode: string; locale: string }> }): Promise<Metadata> {
+  const params = await props.params
+  const { locale } = params
+  const t = await getTranslations({ locale, namespace: "store" })
+  return {
+    title: t("products"),
+    description: t("noResults"),
+  }
 }
 
 export default async function StorePage(props: Params) {
   const params = await props.params;
   const searchParams = await props.searchParams;
   const { sortBy, page } = searchParams
+  const { locale, countryCode } = params
+  setRequestLocale(locale)
 
   return (
     <StoreTemplate
       sortBy={sortBy}
       page={page}
-      countryCode={params.countryCode}
+      countryCode={countryCode}
+      locale={locale}
     />
   )
 }

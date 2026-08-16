@@ -8,6 +8,7 @@ import {
 } from "@headlessui/react"
 import { convertToLocale } from "@lib/util/money"
 import { HttpTypes } from "@medusajs/types"
+import { useTranslations } from "next-intl"
 import { Button } from "@modules/common/components/ui"
 import DeleteButton from "@modules/common/components/delete-button"
 import LineItemOptions from "@modules/common/components/line-item-options"
@@ -22,6 +23,7 @@ const CartDropdown = ({
 }: {
   cart?: HttpTypes.StoreCart | null
 }) => {
+  const t = useTranslations()
   const [cartDropdownOpen, setCartDropdownOpen] = useState(false)
 
   const open = () => setCartDropdownOpen(true)
@@ -57,7 +59,7 @@ const CartDropdown = ({
             className="hover:text-editorial-ink"
             href="/cart"
             data-testid="nav-cart-link"
-          >{`Cart (${totalItems})`}</LocalizedClientLink>
+          >{`${t("nav.cart")} (${totalItems})`}</LocalizedClientLink>
         </PopoverButton>
         <Transition
           show={cartDropdownOpen}
@@ -75,7 +77,7 @@ const CartDropdown = ({
             data-testid="nav-cart-dropdown"
           >
             <div className="p-4 flex items-center justify-center">
-              <h3 className="text-large-semi">Cart</h3>
+              <h3 className="text-large-semi">{t("cart.cart")}</h3>
             </div>
             {cartState && cartState.items?.length ? (
               <>
@@ -124,7 +126,7 @@ const CartDropdown = ({
                                   data-testid="cart-item-quantity"
                                   data-value={item.quantity}
                                 >
-                                  Quantity: {item.quantity}
+                                  {t("cart.quantityItem", { quantity: item.quantity })}
                                 </span>
                               </div>
                               <div className="flex justify-end">
@@ -141,7 +143,7 @@ const CartDropdown = ({
                             className="mt-1"
                             data-testid="cart-item-remove-button"
                           >
-                            Remove
+                            {t("cart.remove")}
                           </DeleteButton>
                         </div>
                       </div>
@@ -150,8 +152,7 @@ const CartDropdown = ({
                 <div className="p-4 flex flex-col gap-y-4 text-small-regular">
                   <div className="flex items-center justify-between">
                     <span className="text-editorial-fg font-semibold">
-                      Subtotal{" "}
-                      <span className="font-normal">(excl. taxes)</span>
+                      {t("cart.subtotalExcl")}
                     </span>
                     <span
                       className="text-large-semi"
@@ -169,9 +170,9 @@ const CartDropdown = ({
                     passHref
                     className="inline-flex gap-2 items-center justify-center rounded-md font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-black text-white hover:bg-gray-800 h-12 px-6 text-lg w-full"
                     data-testid="go-to-cart-button"
-                  >
-                    Go to cart
-                  </LocalizedClientLink>
+                    >
+                      {t("cart.goToCheckout")}
+                    </LocalizedClientLink>
                 </div>
               </>
             ) : (
@@ -180,7 +181,7 @@ const CartDropdown = ({
                   <div className="bg-gray-900 text-small-regular flex items-center justify-center w-6 h-6 rounded-full text-white">
                     <span>0</span>
                   </div>
-                  <span>Your shopping bag is empty.</span>
+                  <span>{t("cart.yourBagIsEmpty")}</span>
                   <div>
                     <LocalizedClientLink
                       href="/store"

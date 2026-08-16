@@ -103,14 +103,14 @@ const ProfileBillingAddress: React.FC<MyInformationProps> = ({
         <div className="grid grid-cols-1 gap-y-2">
           <div className="grid grid-cols-2 gap-x-2">
             <Input
-              label="First name"
+              label={t("account.firstName")}
               name="first_name"
               defaultValue={billingAddress?.first_name || undefined}
               required
               data-testid="billing-first-name-input"
             />
             <Input
-              label="Last name"
+              label={t("account.lastName")}
               name="last_name"
               defaultValue={billingAddress?.last_name || undefined}
               required
@@ -118,13 +118,13 @@ const ProfileBillingAddress: React.FC<MyInformationProps> = ({
             />
           </div>
           <Input
-            label="Company"
+            label={t("account.company")}
             name="company"
             defaultValue={billingAddress?.company || undefined}
             data-testid="billing-company-input"
           />
           <Input
-            label="Phone"
+            label={t("account.phone")}
             name="phone"
             type="phone"
             autoComplete="phone"
@@ -133,28 +133,28 @@ const ProfileBillingAddress: React.FC<MyInformationProps> = ({
             data-testid="billing-phone-input"
           />
           <Input
-            label="Address"
+            label={t("account.address")}
             name="address_1"
             defaultValue={billingAddress?.address_1 || undefined}
             required
             data-testid="billing-address-1-input"
           />
           <Input
-            label="Apartment, suite, etc."
+            label={t("account.apartmentSuite")}
             name="address_2"
             defaultValue={billingAddress?.address_2 || undefined}
             data-testid="billing-address-2-input"
           />
           <div className="grid grid-cols-[144px_1fr] gap-x-2">
             <Input
-              label="Postal code"
+              label={t("account.postalCode")}
               name="postal_code"
               defaultValue={billingAddress?.postal_code || undefined}
               required
               data-testid="billing-postcal-code-input"
             />
             <Input
-              label="City"
+              label={t("account.city")}
               name="city"
               defaultValue={billingAddress?.city || undefined}
               required
