@@ -1,6 +1,6 @@
 import { Heading } from "@modules/common/components/ui"
 import { cookies as nextCookies } from "next/headers"
-import { useTranslations } from "next-intl"
+import { getTranslations } from "next-intl/server"
 
 import CartTotals from "@modules/common/components/cart-totals"
 import Help from "@modules/order/components/help"
@@ -19,7 +19,7 @@ type OrderCompletedTemplateProps = {
 export default async function OrderCompletedTemplate({
   order,
 }: OrderCompletedTemplateProps) {
-  const t = useTranslations()
+  const t = await getTranslations("order")
   const cookies = await nextCookies()
 
   const isOnboarding = cookies.get("_medusa_onboarding")?.value === "true"
@@ -35,7 +35,7 @@ export default async function OrderCompletedTemplate({
           <OrderCompletedHeading />
           <OrderDetails order={order} />
           <Heading level="h2" className="flex flex-row text-3xl-regular">
-            {t("order.summary")}
+            {t("summary")}
           </Heading>
           <Items order={order} />
           <CartTotals totals={order} />
