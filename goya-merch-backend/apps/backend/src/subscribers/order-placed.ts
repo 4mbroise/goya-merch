@@ -4,6 +4,7 @@ import { randomUUID } from "crypto"
 import { generateInvoicePDF } from "../modules/resend/templates/invoice-pdf"
 import { uploadInvoiceToGitHub } from "../modules/resend/github-storage"
 import { calculateInvoiceData, buildOrderConfirmationEmailData } from "../services/invoice/tax-calculation"
+import { toAmount } from "../lib/money"
 
 export default async function orderPlacedHandler({
   event: { data },
@@ -64,7 +65,7 @@ export default async function orderPlacedHandler({
       order_id: order.id,
       customer_email: order.email,
       customer_name: `${shippingAddress.first_name || ""} ${shippingAddress.last_name || ""}`.trim(),
-      total_ttc: (order as any).total || 0,
+      total_ttc: toAmount((order as any).total),
       currency_code: (order as any).currency_code || "eur",
       file_key: `invoices/${now.getFullYear()}/${String(now.getMonth() + 1).padStart(2, "0")}/${invoiceNumber}.pdf`,
       file_url: null,
