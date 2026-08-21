@@ -1,7 +1,8 @@
 import { convertToLocale } from "@lib/util/money"
 import { HttpTypes } from "@medusajs/types"
-import { Text } from "@modules/common/components/ui"
+import { Text, Heading } from "@modules/common/components/ui"
 import { clx } from "@modules/common/components/ui"
+import Divider from "@modules/common/components/divider"
 import React from "react"
 import { useTranslations } from "next-intl"
 
